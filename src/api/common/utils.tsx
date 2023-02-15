@@ -1,9 +1,4 @@
-import type {
-  GetNextPageParamFunction,
-  GetPreviousPageParamFunction,
-} from '@tanstack/react-query';
-
-import type { PaginateQuery } from '../types';
+import type { PaginateQuery } from '@/api/types';
 
 type KeyParams = {
   [key: string]: any;
@@ -39,11 +34,3 @@ export function getUrlParameters(
   }
   return params;
 }
-
-export const getPreviousPageParam: GetNextPageParamFunction<
-  PaginateQuery<unknown>
-> = (page) => getUrlParameters(page.previous)?.offset ?? null;
-
-export const getNextPageParam: GetPreviousPageParamFunction<
-  PaginateQuery<unknown>
-> = (page) => getUrlParameters(page.next)?.offset ?? null;

@@ -2,11 +2,6 @@ import { getItem, removeItem, setItem } from '@/core/utils';
 
 const TOKEN = 'token';
 
-export type TokenType = {
-  access: string;
-  refresh: string;
-};
-
-export const getToken = () => getItem<TokenType>(TOKEN);
+export const getToken = () => getItem<any>(TOKEN);
 export const removeToken = () => removeItem(TOKEN);
-export const setToken = (value: TokenType) => setItem<TokenType>(TOKEN, value);
+export const setToken = (value: any) => setItem<any>(TOKEN, value);

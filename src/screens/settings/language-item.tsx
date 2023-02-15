@@ -4,10 +4,9 @@ import * as React from 'react';
 import { useSelectedLanguage } from '@/core';
 import { translate } from '@/core';
 import type { Language } from '@/core/i18n/resources';
+import { Item } from '@/screens/settings/item';
 import type { Option } from '@/ui';
 import { Options } from '@/ui';
-
-import { Item } from './item';
 
 export const LanguageItem = () => {
   const { language, setLanguage } = useSelectedLanguage();
@@ -24,7 +23,7 @@ export const LanguageItem = () => {
   const langs = React.useMemo(
     () => [
       { label: translate('settings.english'), value: 'en' },
-      { label: translate('settings.arabic'), value: 'ar' },
+      { label: translate('settings.vi'), value: 'vi' },
     ],
     []
   );

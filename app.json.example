@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "eas-project-id-here"
+      }
+    },
+    "owner": "eas-user-name-here",
+    "updates": {
+      "url": "https://u.expo.dev/eas-project-id-here"
+    },
+    "runtimeVersion": "1.0.0"
+  }
+}

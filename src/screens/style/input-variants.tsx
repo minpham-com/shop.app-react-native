@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { Title } from '@/screens/style/title';
 import type { Option } from '@/ui';
 import { Input, Select, View } from '@/ui';
-
-import { Title } from './title';
 
 const options: Option[] = [
   { value: 'chocolate', label: 'Chocolate' },

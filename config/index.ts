@@ -2,22 +2,30 @@
 // unfortunately, we cant import  typescript config inside expo config file
 import Constants from 'expo-constants';
 
-import { getConfig } from './config.js';
+import { getEnv } from './config';
 
-const NConfig = getConfig(
-  Constants.expoConfig?.extra?.APP_ENV ?? 'development'
-);
-
-type APP_ENV_Type = 'development' | 'staging' | 'production';
 export type ConfigType = {
   scheme: string;
   icon: string;
   foregroundImage: string;
-  APP_ENV: APP_ENV_Type;
+  APP_ENV: EnvType;
   API_URL: string;
+  API_KEY: string;
   version: string;
   name: string;
+  slug: string;
+  runtimeVersion: string;
 };
-const Config = NConfig as ConfigType;
 
-export default Config;
+export type Env = {
+  development: ConfigType;
+  staging: ConfigType;
+  production: ConfigType;
+};
+
+export type EnvType = 'development' | 'staging' | 'production';
+
+const Config = getEnv(Constants.expoConfig?.extra?.APP_ENV ?? 'development');
+
+const env = Config as ConfigType;
+export default env;

@@ -1,11 +1,10 @@
 import React from 'react';
 
+import { ButtonVariants } from '@/screens/style/button-variants';
+import { ColorVariants } from '@/screens/style/color-variants';
+import { InputVariants } from '@/screens/style/input-variants';
+import { TextVariants } from '@/screens/style/text-variants';
 import { ScrollView, View } from '@/ui';
-
-import { ButtonVariants } from './button-variants';
-import { ColorVariants } from './color-variants';
-import { InputVariants } from './input-variants';
-import { TextVariants } from './text-variants';
 
 export const Style = () => {
   return (

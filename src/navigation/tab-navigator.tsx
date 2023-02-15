@@ -13,8 +13,6 @@ import {
 } from '@/ui';
 import colors from '@/ui/theme/colors';
 
-import { FeedNavigator } from './feed-navigator';
-
 type TabParamList = {
   Style: undefined;
   FeedNavigator: undefined;
@@ -49,11 +47,6 @@ const tabs: TabType[] = [
     name: 'Style',
     component: Style,
     label: 'Style',
-  },
-  {
-    name: 'FeedNavigator',
-    component: FeedNavigator,
-    label: 'Feed',
   },
   {
     name: 'Settings',

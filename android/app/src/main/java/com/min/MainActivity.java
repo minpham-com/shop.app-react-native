@@ -1,4 +1,4 @@
-package com.min.development;
+package com.min;
 
 import android.os.Build;
 import android.os.Bundle;

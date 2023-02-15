@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Title } from '@/screens/style/title';
 import { Button, buttonVariants, View } from '@/ui';
-
-import { Title } from './title';
 
 type variant = keyof typeof buttonVariants;
 

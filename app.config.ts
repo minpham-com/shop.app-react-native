@@ -1,20 +1,20 @@
-import type { ConfigType } from '@config';
 import type { ConfigContext, ExpoConfig } from '@expo/config';
 
-import { getConfig } from './config/config.js';
+import { getEnv } from './config/config';
+import type { ConfigType } from './config/index';
+
 //@ts-ignore
 const appEnv = process.env.APP_ENV ?? 'development';
 
-const Config = getConfig(appEnv) as ConfigType;
+const env = getEnv(appEnv) as ConfigType;
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
-  ...config,
-  name: Config.name,
-  description: `${Config.name} Min Store`,
-  slug: 'min-store',
-  version: Config.version.toString(),
+  name: env.name,
+  description: `${env.name} Min Store`,
+  slug: env.slug || 'min-store',
+  version: env.version.toString(),
   orientation: 'portrait',
-  icon: Config.icon,
+  icon: env.icon,
   userInterfaceStyle: 'light',
   splash: {
     image: './assets/splash.png',
@@ -27,20 +27,21 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: Config.scheme,
+    bundleIdentifier: env.scheme,
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: Config.foregroundImage,
+      foregroundImage: env.foregroundImage,
       backgroundColor: '#FFFFFF',
     },
-    package: Config.scheme,
+    package: env.scheme,
   },
   web: {
     favicon: './assets/favicon.png',
   },
   plugins: [['@bacons/link-assets', ['./assets/fonts/Inter.ttf']]],
   extra: {
-    APP_ENV: appEnv,
+    ...env,
   },
+  ...config,
 });

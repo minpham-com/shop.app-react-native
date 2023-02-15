@@ -2,8 +2,8 @@ name: Notice yarn.lock changes
 on:
   pull_request:
     paths:
-      - 'yarn.lock'
-      - 'package-lock.json'
+      - "yarn.lock"
+      - "package-lock.json"
 
 jobs:
   check:
@@ -14,14 +14,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Notice yarn.lock changes
-        uses: Simek/yarn-lock-changes@main
+        uses: minpham-com/yarn-lock-changes@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          collapsibleThreshold: '25'
-          failOnDowngrade: 'false'
-          path: 'yarn.lock'
-          updateComment: 'true'
+          collapsibleThreshold: "25"
+          failOnDowngrade: "false"
+          path: "yarn.lock"
+          updateComment: "true"
+
   # doctor:
   #   name: Expo Doctor
   #   runs-on: ubuntu-latest
@@ -31,15 +33,17 @@ jobs:
 
   #     - name: Get yarn cache directory path
   #       id: yarn-cache-dir-path
-  #       run: echo "::set-output name=dir::$(yarn cache dir)"
+  #       run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
   #     - name: Restore node_modules from cache
   #       uses: actions/cache@v3
   #       id: yarn-cache
   #       with:
-  #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+  #         path: ${{ ${{ steps.yarn-cache-dir-path.outputs.dir }} }}
   #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
   #         restore-keys: |
   #           ${{ runner.os }}-yarn-
+
   #     - name: Install expo cli & node_modules
   #       run: |
   #         npm install -g expo-cli
@@ -56,7 +60,7 @@ jobs:
   #         echo "::set-output name=delta_output::$delta"
 
   #     - name: Auto Comment
-  #       uses: bubkoo/auto-comment@v1
+  #       uses: minpham-com/auto-comment@v1
   #       with:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         pullRequestOpened: >

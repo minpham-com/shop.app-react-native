@@ -6,9 +6,9 @@ import { useCallback } from 'react';
 import { I18nManager, NativeModules } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
 
-import { storage } from '../utils';
-import type { Language, resources } from './resources';
-import type { RecursiveKeyOf } from './types';
+import type { Language, resources } from '@/core/i18n/resources';
+import type { RecursiveKeyOf } from '@/core/i18n/types';
+import { storage } from '@/core/utils';
 
 type DefaultLocale = typeof resources.en.translation;
 export type TxKeyPath = RecursiveKeyOf<DefaultLocale>;
@@ -18,14 +18,15 @@ export const LOCAL = 'local';
 export const getLanguage = () => storage.getString(LOCAL); // 'Marc' getItem<Language | undefined>(LOCAL);
 
 export const translate = memoize(
-  (key: TxKeyPath, options = undefined) => i18n.t(key, options) as string,
+  (key: TxKeyPath, options = undefined) =>
+    i18n.t(key, options) as unknown as string,
   (key: TxKeyPath, options: typeof TranslateOptions) =>
     options ? key + JSON.stringify(options) : key
 );
 
 export const changeLanguage = (lang: Language) => {
   i18n.changeLanguage(lang);
-  if (lang === 'ar') {
+  if (lang === 'vi') {
     I18nManager.forceRTL(true);
   } else {
     I18nManager.forceRTL(false);

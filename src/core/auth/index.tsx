@@ -1,45 +1,39 @@
-import create from 'zustand';
+import { create } from 'zustand';
 
-import { createSelectors } from '../utils';
-import type { TokenType } from './utils';
-import { getToken, removeToken, setToken } from './utils';
-
+import { client } from '@/api';
+import { removeToken, setToken } from '@/core/auth/utils';
+import { createSelectors } from '@/core/utils';
 interface AuthState {
-  token: TokenType | null;
+  customer: any | null;
   status: 'idle' | 'signOut' | 'signIn';
-  signIn: (data: TokenType) => void;
+  signIn: (data: any) => void;
   signOut: () => void;
   hydrate: () => void;
 }
 
 const _useAuth = create<AuthState>((set, get) => ({
   status: 'idle',
-  token: null,
-  signIn: (token) => {
-    setToken(token);
-    set({ status: 'signIn', token });
+  customer: null,
+  signIn: (customer: any) => {
+    setToken(customer);
+    set({ status: 'signIn', customer });
   },
   signOut: () => {
     removeToken();
-    set({ status: 'signOut', token: null });
+    set({ status: 'signOut', customer: null });
   },
   hydrate: () => {
-    try {
-      const userToken = getToken();
-      if (userToken !== null) {
-        get().signIn(userToken);
-      } else {
-        get().signOut();
-      }
-    } catch (e) {
-      // catch error here
-      // Maybe sign_out user!
-    }
+    client.auth
+      .getSession()
+      .then((customer: any) => {
+        get().signIn(customer);
+      })
+      .catch(() => get().signOut());
   },
 }));
 
 export const useAuth = createSelectors(_useAuth);
 
 export const signOut = () => _useAuth.getState().signOut();
-export const signIn = (token: TokenType) => _useAuth.getState().signIn(token);
+export const signIn = (customer: any) => _useAuth.getState().signIn(customer);
 export const hydrateAuth = () => _useAuth.getState().hydrate();

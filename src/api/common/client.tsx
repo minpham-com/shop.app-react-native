@@ -1,5 +1,8 @@
-import Config from '@config';
-import axios from 'axios';
-export const client = axios.create({
-  baseURL: Config.API_URL,
+import env from '@config/index';
+import Medusa from '@medusajs/medusa-js';
+
+export const client = new Medusa({
+  maxRetries: 0,
+  baseUrl: env.API_URL,
+  publishableApiKey: env.API_KEY,
 });

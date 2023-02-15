@@ -8,20 +8,21 @@ on:
 jobs:
   android-build:
     name: Android Build
-    runs-on: ubuntu-latest # using ubuntu latest version / or you can use a specific version
-
+    runs-on: ubuntu-latest
+    environment: android
     steps:
-      - name: Check out Git repository # clone the repo to local ci workspace
+      - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up our JDK environment # setup JDK environment: mandatory as we need to build  android project
+      - name: Set up our JDK environment
         uses: actions/setup-java@v3
         with:
           java-version: 1.8
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
       - name: Restore node_modules from cache
         uses: actions/cache@v3
         id: yarn-cache
@@ -31,10 +32,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install dependencies # install project deps with --frozen-lockfile to make sure we will have the same packages version ( very recommended  on running yarn install on ci)
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      ## configure cash for gradle : will help to reduce build time
       - name: Cache Gradle Wrapper
         uses: actions/cache@v3
         with:
@@ -48,6 +48,7 @@ jobs:
           key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-caches-
+
       - name: Make Gradlew Executable
         run: cd android && chmod +x ./gradlew
 
@@ -58,7 +59,7 @@ jobs:
       ## sign generated apk
       - name: Sign APK
         id: sign_app
-        uses: r0adkll/sign-android-release@v1
+        uses: minpham-com/sign-android-release@v1
         with:
           releaseDirectory: android/app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
@@ -68,7 +69,7 @@ jobs:
 
       ## Distribute app to Firebase App Distribution for testing / use google play internal track if you have a google play account
       - name: upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        uses: minpham-com/firebase-distribution@v1
         with:
           appId: ${{secrets.ANDROID_FIREBASE_APP_ID}}
           token: ${{secrets.ANDROID_FIREBASE_TOKEN}}
@@ -81,7 +82,7 @@ jobs:
 
       - name: Sign App Bundle
         id: sign_app
-        uses: r0adkll/sign-android-release@v1
+        uses: minpham-com/sign-android-release@v1
         with:
           releaseDirectory: android/app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
@@ -91,10 +92,10 @@ jobs:
 
       ## Distribute  App to google play alpha track
       - name: Upload App to Google Play
-        uses: r0adkll/upload-google-play@v1
+        uses: minpham-com/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON_TEXT }}
-          packageName: com.test.test
+          packageName: com.min.development
           releaseFiles: android/app/build/outputs/bundle/release/*.aab
           track: alpha
           status: completed

@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { Title } from '@/screens/style/title';
 import { Text, View } from '@/ui';
 import colors from '@/ui/theme/colors';
-
-import { Title } from './title';
 type ColorName = keyof typeof colors;
 
 export const ColorVariants = () => {

@@ -4,11 +4,10 @@ import React, { useEffect } from 'react';
 
 import { useAuth } from '@/core';
 import { useIsFirstTime } from '@/core/hooks';
+import { AuthNavigator } from '@/navigation/auth-navigator';
+import { NavigationContainer } from '@/navigation/navigation-container';
+import { TabNavigator } from '@/navigation/tab-navigator';
 import { Onboarding } from '@/screens';
-
-import { AuthNavigator } from './auth-navigator';
-import { NavigationContainer } from './navigation-container';
-import { TabNavigator } from './tab-navigator';
 const Stack = createNativeStackNavigator();
 
 export const Root = () => {

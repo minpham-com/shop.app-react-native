@@ -1,0 +1,26 @@
+{
+  "onboarding": {
+    "message": "Chào mừng tới Min Store"
+  },
+  "settings": {
+    "about": "Về chúng tôi",
+    "app_name": "Min Store",
+    "dark": "Tối",
+    "english": "English",
+    "generale": "Tổng quan",
+    "language": "Ngôn ngữ",
+    "light": "Sáng",
+    "links": "Đường dẫn",
+    "logout": "Đăng xuất",
+    "more": "Xem thêm",
+    "privacy": "Chính sách bảo mật",
+    "support": "Hỗ trợ",
+    "terms": "Điều khoản",
+    "theme": "Theme",
+    "title": "Cài đặt",
+    "version": "Phiên bản",
+    "vi": "Việt Nam",
+    "website": "Website"
+  },
+  "welcome": "Chào mừng tới Min Store"
+}

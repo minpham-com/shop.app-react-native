@@ -56,8 +56,8 @@ const updateConfig = async (projectName) => {
     encoding: 'utf-8',
   });
   const replaced = contents
-    .replace(/ObytesApp/gi, projectName)
-    .replace(/com.obytes/gi, `com.${projectName.toLowerCase()}`);
+    .replace(/MinStore/gi, projectName)
+    .replace(/com.min/gi, `com.${projectName.toLowerCase()}`);
 
   fs.writeFileSync(configPath, replaced, { spaces: 2 });
   const readmeFilePath = path.join(

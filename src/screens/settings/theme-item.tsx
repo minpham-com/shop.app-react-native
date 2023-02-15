@@ -3,10 +3,9 @@ import { useColorScheme } from 'nativewind';
 import React from 'react';
 
 import { translate } from '@/core';
+import { Item } from '@/screens/settings/item';
 import type { Option } from '@/ui';
 import { Options } from '@/ui';
-
-import { Item } from './item';
 
 export const ThemeItem = () => {
   const { colorScheme, setColorScheme } = useColorScheme();

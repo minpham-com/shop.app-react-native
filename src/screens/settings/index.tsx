@@ -1,15 +1,14 @@
-import Config from '@config';
+import env from '@config/index';
 import * as React from 'react';
 
 import { useAuth } from '@/core';
 import { translate } from '@/core';
+import { Item } from '@/screens/settings/item';
+import { ItemsContainer } from '@/screens/settings/items-container';
+import { LanguageItem } from '@/screens/settings/language-item';
+import { ThemeItem } from '@/screens/settings/theme-item';
 import { ScrollView, Text, View } from '@/ui';
-import { Github, Rate, Share, Support, Website } from '@/ui/icons';
-
-import { Item } from './item';
-import { ItemsContainer } from './items-container';
-import { LanguageItem } from './language-item';
-import { ThemeItem } from './theme-item';
+import { Support, Website } from '@/ui/icons';
 
 export const Settings = () => {
   const signOut = useAuth.use.signOut();
@@ -25,20 +24,14 @@ export const Settings = () => {
         </ItemsContainer>
 
         <ItemsContainer title="settings.about">
-          <Item text="settings.app_name" value={Config.name} />
-          <Item text="settings.version" value={Config.version} />
-        </ItemsContainer>
-
-        <ItemsContainer title="settings.support_us">
-          <Item text="settings.share" icon={<Share />} onPress={() => {}} />
-          <Item text="settings.rate" icon={<Rate />} onPress={() => {}} />
-          <Item text="settings.support" icon={<Support />} onPress={() => {}} />
+          <Item text="settings.app_name" value={env.name} />
+          <Item text="settings.version" value={env.version} />
         </ItemsContainer>
 
         <ItemsContainer title="settings.links">
           <Item text="settings.privacy" onPress={() => {}} />
           <Item text="settings.terms" onPress={() => {}} />
-          <Item text="settings.github" icon={<Github />} onPress={() => {}} />
+          <Item text="settings.support" icon={<Support />} onPress={() => {}} />
           <Item text="settings.website" icon={<Website />} onPress={() => {}} />
         </ItemsContainer>
 

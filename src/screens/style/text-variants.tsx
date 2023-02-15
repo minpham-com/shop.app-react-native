@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Title } from '@/screens/style/title';
 import { Text, textVariants, View } from '@/ui';
-
-import { Title } from './title';
 
 type variant = keyof typeof textVariants;
 
